@@ -1,6 +1,6 @@
 ## Wstęp
 
-Pierwsza część projektu znajduje się w folderze 'Part 1', druga odpowiednio w 'Part 2'. Kod z rozwiązaniem znajduje się w pliku 'Train.py'.
+Pierwsza część projektu znajduje się w folderze 'Part 1', druga odpowiednio w 'Part 2'. Kod z rozwiązaniem znajduje się w pliku 'train.py'.
 
 ## Część pierwsza
 
@@ -10,18 +10,18 @@ Użyłam sieci konwolucyjnych, bo one są jednym z najlepszych rozwiązań probl
 Najpierw w sieciach konwolucyjnych jest stosowany filtr to poszególnych fragmentów obrazku. Sieci używają tego samego filtru dla każdego pikselu w warstwie. Za pomocą zastosowania takiego filtru są uzyskiwane 'features', czyli wlaściwości obrazku. Warstwa 'poolingu' pomaga progresywnie zmniejszyć rozmiar reprezetacji, liczbę parametrów i szybkość obliczenia. 
 
 - Opis hiperparametrów:
-	**batch_size** — ilość obrazków trenujących, które są wykorzystane jednocześnie pod czas jednej iteracji
-	**num_epochs** — ilość iteracji algorytmu trenującego po całym zbiorze
-	**kernel_size** — rozmiar jądra w odpowiedniej warstwie
-	**pool_size** — rozmiar podzbioru w warstwie poolingu
-	**сonv_depth** — ilość jąder w konwolucyjnych warstwach 
-	**drop_prob** (dropout probability) — ilość w procentach ile neuronów będzie usunętych w warstwie 'dropout' 
-	**hidden_size** — ilość neuronów w warstwie Dense
+	⋅⋅* **batch_size** — ilość obrazków trenujących, które są wykorzystane jednocześnie pod czas jednej iteracji
+	⋅⋅* **num_epochs** — ilość iteracji algorytmu trenującego po całym zbiorze
+	⋅⋅* **kernel_size** — rozmiar jądra w odpowiedniej warstwie
+	⋅⋅* **pool_size** — rozmiar podzbioru w warstwie poolingu
+	⋅⋅* **сonv_depth** — ilość jąder w konwolucyjnych warstwach 
+	⋅⋅* **drop_prob** (dropout probability) — ilość w procentach ile neuronów będzie usunętych w warstwie 'dropout' 
+	⋅⋅* **hidden_size** — ilość neuronów w warstwie Dense
 
 	można też dobrać:
-	**activation** - funckcja aktywacyjna (ReLU, Sigmoid i t.d.)
-	**optimizer** - algorytm optymizacji 
-	i t.d.
+	⋅⋅* **activation** - funckcja aktywacyjna (ReLU, Sigmoid i t.d.)
+	⋅⋅* **optimizer** - algorytm optymizacji 
+	⋅⋅ i t.d.
 
 Dla wyboru hiperparametrów można skorzystać z: Grid Search, Bayesian optimization, Random Search i Gradient-based Optimization.
 Ja skorzystałam z Grid Search. Kod można zobaczyć w pliku 'Part 1/GridSearchCV.py'. W celu szybkiego działania była zmniejszona ilość obrazków trenujących, jednak sama sieć konwolucyjna nie zmieniła się przy stosowaniu pełnych danych.
