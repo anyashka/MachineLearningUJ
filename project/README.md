@@ -47,7 +47,7 @@ Najpiew Grid Search był wywołany dla rzeczywistego zbioru i z większą liczb�
 
 ## Część druga
 
-Dla wykonania unsupervised pretrainingu było użyto autoencodera. W najprostszym wariancie autoencoder posiada warswę wejściową, pośrednią oraz wyjściową. Rozmiar warstwy wejściowej i wyjściowej jest identyczny. Stosując autoencoder ale ilości epoch = 15 zauważano, że nie wiele to zmienia:
+Dla wykonania unsupervised pretrainingu było użyto autoencodera. W najprostszym wariancie autoencoder posiada warswę wejściową, pośrednią oraz wyjściową. Rozmiar warstwy wejściowej i wyjściowej jest identyczny. Wynik był generowany za pomocą autoencodera z ilością epoch = 15.
 ```
 Epoch 1/15
 50000/50000 [==============================] - 424s - loss: 0.5940 - val_loss: 0.5757
@@ -56,13 +56,7 @@ Epoch 5/15
 Epoch 10/15
 Epoch 15/15
 50000/50000 [==============================] - 428s - loss: 0.5635 - val_loss: 0.5636
-```
-Dla tego wynik był generowany za pomocą autoencodera z ilością epoch = 5. 
+``` 
 
 Porównując wyniki modelu z pretrainingem oraz modelu bez pretrainingu, można zauważyć, że model z autoencoderem liczył się szybcziej. 
-
-```
-'Train accuraccy of model with pretraining:', 0.67700000000000005
-'Train accuraccy of model without pretraining:', 0.66359999999999997
-```
-Jak widać, training accuraccy dla modelu z pretrainingem jest nieznacznie, ale lepsza. 
+Training accuraccy dla modelu z pretrainingem jest lepsza, niż dla identycznego modelu bez pretrainingu. 

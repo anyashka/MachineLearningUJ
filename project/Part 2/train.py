@@ -7,6 +7,7 @@ from keras.models import Model
 from keras.layers import Input, Conv2D, MaxPooling2D, Dense, Dropout, Flatten, UpSampling2D
 from keras.utils import np_utils
 from keras import backend as K
+from keras.models import load_model
 
 K.set_image_dim_ordering('th')
 
@@ -52,9 +53,10 @@ num_classes = np.unique(y_train_small).shape[0]
 Y_train_small = np_utils.to_categorical(y_train_small, num_classes)
 
 batch_size = 32
+num_epochs_autoen = 15
+num_epochs_model = 80
 
 input_img = Input(shape=(depth, height, width))
-
 x = Conv2D(16, (3, 3), activation='relu', padding='same')(input_img)
 x = MaxPooling2D((2, 2), padding='same')(x)
 x = Conv2D(8, (3, 3), activation='relu', padding='same')(x)
@@ -70,15 +72,15 @@ autoencoder = Model(input_img, decoded)
 autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
 
 autoencoder.fit(X_train, X_train,
-                epochs=5,
-                batch_size=batch_size,
+                epochs=num_epochs_autoen,
+                batch_size=32,
                 shuffle=True,
                 validation_data=(X_train_small, X_train_small))
+# autoencoder.save('autoencoder.h5')
 
-num_epochs = 2
-
-x = autoencoder.output
-x = Flatten()(input_img)
+# autoencoder = load_model('autoencoder.h5')
+x = autoencoder.layers[-6].output
+x = Flatten()(x)
 x = Dense(512, activation='relu')(x)
 x = Dropout(0.25)(x)
 x = Dense(10, activation='softmax')(x)
@@ -90,7 +92,7 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 model.fit(X_train_small, Y_train_small,
-          batch_size=batch_size, epochs = 200,
+          batch_size=batch_size, epochs = num_epochs_model,
           verbose=1, validation_split=0.1)
 train_acc_1 = model.evaluate(X_train_small, Y_train_small, verbose=1)
 print("Train acc:", train_acc_1)
@@ -112,13 +114,14 @@ model_2.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 model_2.fit(X_train_small, Y_train_small,
-          batch_size=batch_size, epochs = 200,
+          batch_size=batch_size, epochs = num_epochs_model,
           verbose=1, validation_split=0.1)
 train_acc_2 = model_2.evaluate(X_train_small, Y_train_small, verbose=1)
 print("Train acc 2:", model.evaluate(X_train_small, Y_train_small, verbose=1))
 y_proba_2 = model.predict(X_test)
 
-save_labels(probas_to_classes(y_proba_2), "data/y_pred_small_2.csv")
+save_labels(probas_to_classes(y_proba_2), "data/y_pred_small_super.csv")
+
 
 print("Train acc check1:", train_acc_1[1])
 print("Train acc check2:", train_acc_2[1])
